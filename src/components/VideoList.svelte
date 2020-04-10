@@ -1,7 +1,8 @@
 <script>
     import { webm } from ".././store/webm";
-    import {afterUpdate, beforeUpdate} from "svelte";
+    import { afterUpdate } from "svelte";
 
+    // Lazy loading videos
     const handleScroll = (e) => {
         if ((e.target.offsetHeight + e.target.scrollTop) >= (e.target.scrollHeight-10)) {
             webm.incrementVisible();
@@ -11,29 +12,24 @@
     let ul;
     let scrollIntoOptions = false;
 
+    // Control item position in list
     afterUpdate(() => {
-
         if (!ul) return;
         const activeElement = ul.querySelector(".active");
-        if (!activeElement) return;
 
+        if (!activeElement) return;
         activeElement.scrollIntoView(scrollIntoOptions);
     });
 
-    const setStatus = (e) => {
-        scrollIntoOptions = e.detail;
-    };
-
-    const changeVideo = (i) => {
-        webm.changeVideo(i);
-    };
+    const setStatus = (e) => scrollIntoOptions = e.detail;
+    const changeVideo = (i) => webm.changeVideo(i);
 
 </script>
 
 <svelte:window on:setScrollInto={setStatus}/>
 
 <template>
-    <ul on:scroll={handleScroll} bind:this={ul}>
+    <ul on:scroll={ handleScroll } bind:this={ ul }>
         {#each $webm.files as file, i}
             {#if  i < $webm.totalVisible}
                 <li class:active={$webm.index === i} on:click={() => changeVideo(i)}>

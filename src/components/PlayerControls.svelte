@@ -1,11 +1,7 @@
 <script>
-    import {webm} from ".././store/webm";
+    import { webm } from ".././store/webm";
+    import { player, currentTime } from ".././store/player";
     import Progress from "./Controls/Progress.svelte";
-
-    export let paused = true;
-    export let currentTime;
-    export let duration;
-    export let volume;
 
     $: isDisableNext = $webm.index === $webm.files.length;
     $: isDisablePrev = $webm.index === 0;
@@ -36,16 +32,11 @@
     }
 
     const handleVolume = () => {
-        volume = volume ? 0 : localStorage.volume || 0.5;
-        volume = +volume;
+        $player.volume = $player.volume ? 0 : localStorage.volume || 0.5;
+        $player.volume = +$player.volume;
     };
 
-    const handleInput = (e) => {
-        localStorage.volume = e.detail.value
-    };
-
-
-
+    const handleInput = (e) => localStorage.volume = e.detail.value;
 </script>
 
 <template>
@@ -63,11 +54,11 @@
     </div>
     <div class="controls-bottom">
         <div class="buttons">
-            <button class="control-btn" on:click={previousVideo} disabled={isDisablePrev}>
+            <button class="control-btn" on:click={ previousVideo} disabled={isDisablePrev}>
                 <ion-icon name="play-back"></ion-icon>
             </button>
-            <button class="control-btn" on:click={() => paused = !paused}>
-                <ion-icon name="{ paused ? 'play' : 'pause'}"></ion-icon>
+            <button class="control-btn" on:click={() => $player.paused = !$player.paused}>
+                <ion-icon name="{ $player.paused ? 'play' : 'pause'}"></ion-icon>
             </button>
             <button class="control-btn" on:click={nextVideo} disabled={isDisableNext}>
                  <ion-icon name="play-forward"></ion-icon>
@@ -76,18 +67,18 @@
         <div class="progresses">
             <div class="duration">
                 <span>
-                    { format(currentTime) }
+                    { format($currentTime) }
                 </span>
-                <Progress min="0" max={duration} bind:val={currentTime}/>
+                <Progress min="0" max={$player.duration} bind:val={$currentTime}/>
                 <span>
-                    { format(duration) }
+                    { format($player.duration) }
                 </span>
             </div>
             <div class="volume">
                 <span class="volume-ico" on:click={handleVolume}>
-                    <ion-icon name="{ volume === 0 ? 'volume-off' : 'volume-medium'}"></ion-icon>
+                    <ion-icon name="{ $player.volume === 0 ? 'volume-off' : 'volume-medium'}"></ion-icon>
                 </span>
-                <Progress on:input={handleInput} min="0" max=1 bind:val={volume}/>
+                <Progress on:input={handleInput} min="0" max=1 bind:val={$player.volume}/>
             </div>
         </div>
     </div>

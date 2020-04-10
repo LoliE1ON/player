@@ -4,7 +4,6 @@
 </script>
 
 <template>
-
 	<div class="player-container">
 		<Player/>
 	</div>

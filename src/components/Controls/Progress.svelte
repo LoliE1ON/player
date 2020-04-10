@@ -7,11 +7,12 @@
 
     const dispatch = createEventDispatcher();
 
-    function handleInput(e) {
+    // Dispatch event for save volume value
+    const handleInput = (e) => {
         dispatch('input', {
             value: +e.target.value
         });
-    }
+    };
 
 </script>
 
