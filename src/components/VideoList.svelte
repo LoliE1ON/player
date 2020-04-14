@@ -2,27 +2,31 @@
     import { webm } from ".././store/webm";
     import { afterUpdate } from "svelte";
 
-    // Lazy loading videos
-    const handleScroll = (e) => {
-        if ((e.target.offsetHeight + e.target.scrollTop) >= (e.target.scrollHeight-10)) {
-            webm.incrementVisible();
-        }
-    };
-
     let ul;
     let scrollIntoOptions = false;
 
-    // Control item position in list
+    // Lazy loading videos on end scroll
+    const handleScroll = (e) => {
+        if ((e.target.offsetHeight + e.target.scrollTop) >= (e.target.scrollHeight-10)) {
+            webm.incrementVisible();
+            scrollIntoOptions = "break";
+        }
+    };
+
+    const setStatus = (e) => scrollIntoOptions = e.detail;
+    const changeVideo = (i) => {
+        scrollIntoOptions = false;
+        webm.changeVideo(i);
+    };
+
+    // Controlling item position in list
     afterUpdate(() => {
-        if (!ul) return;
+        if (!ul || scrollIntoOptions === "break") return;
         const activeElement = ul.querySelector(".active");
 
         if (!activeElement) return;
         activeElement.scrollIntoView(scrollIntoOptions);
     });
-
-    const setStatus = (e) => scrollIntoOptions = e.detail;
-    const changeVideo = (i) => webm.changeVideo(i);
 
 </script>
 

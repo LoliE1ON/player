@@ -5,13 +5,25 @@ function createStore() {
 
     const state = {
         files: [],
+        boards: [],
         index: 0,
         autoPlay: false,
         totalVisible: 10,
     };
 
     const { subscribe, set, update } = writable({...state}, (set) => {
-        getFiles().then(files => files.sort(() => Math.random() - 0.5)).then(files => set({...state, files}));
+        getFiles().then(data => {
+            return {
+                ...data,
+                files: data.files.sort(() => Math.random() - 0.5)
+            }
+        }).then(data => {
+            console.log(data)
+            return set({
+                ...state,
+                files: data.files,
+            })
+        });
         return () => false;
     });
 

@@ -7,7 +7,13 @@
 	<div class="player-container">
 		<Player/>
 	</div>
-	<VideoList/>
+
+	<div class="container-list ">
+		<div class="list-videos">
+			<VideoList/>
+		</div>
+	</div>
+
 </template>
 
 <style global>
@@ -18,6 +24,17 @@
 	}
 	* {
 		box-sizing: border-box;
+	}
+	.container-list {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.list-videos {
+		flex: 3 1 0;
+	}
+	.list-boards {
+		flex: 1 1 0;
 	}
 	.player-container {
 		display: flex;
