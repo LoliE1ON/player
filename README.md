@@ -1,5 +1,5 @@
 
-[![](https://media.discordapp.net/attachments/611114011110408202/699628601980485692/unknown.png?width=555&height=679)]
+![](https://media.discordapp.net/attachments/611114011110408202/699628601980485692/unknown.png?width=555&height=679)
 ## Get started
 
 Install the dependencies...
