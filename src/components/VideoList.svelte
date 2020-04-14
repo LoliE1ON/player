@@ -44,6 +44,9 @@
                         {/if}
                         <span class="pl5">
                             {file.name}
+                            <span class="board">
+                                /{file.board}
+                            </span>
                         </span>
                     </div>
                 </li>
@@ -92,5 +95,12 @@
     .active {
         background: #0e0e0e!important;
         color: #e30000 !important;
+    }
+    .board {
+        padding: 0 5px;
+        border-radius: 2px;
+        margin-left: 0px;
+        font-size: 12px;
+        background: black;
     }
 </style>
