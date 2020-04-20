@@ -5,7 +5,7 @@
 Install the dependencies...
 
 ```bash
-cd svelte-app
+cd player
 npm install
 ```
 
